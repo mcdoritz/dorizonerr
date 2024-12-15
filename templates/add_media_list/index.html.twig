@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une chaine ou une playlist{% endblock %}
+
+{% block body %}
+    <div class="form">
+        {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.url) }}
+            <div class="input-group">
+                {{ form_widget(form.url) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.x_last_videos) }}
+            <div class="input-group">
+                {{ form_widget(form.x_last_videos) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.delete_after) }}
+            <div class="input-group">
+                {{ form_widget(form.delete_after) }}
+                <span class="input-text">jours (0 pour ne jamais supprimer)</span>
+            </div>
+            {{ form_errors(form.delete_after) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.cronjob) }}
+            <div class="input-group">
+                {{ form_widget(form.cronjob) }}
+            </div>
+            {{ form_errors(form.cronjob) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.quality) }}
+            <div class="input-group">
+                {{ form_widget(form.quality) }}
+            </div>
+            {{ form_errors(form.quality) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.path) }}
+            <div class="input-group">
+                {{ form_widget(form.path) }}
+            </div>
+            {{ form_errors(form.path) }}
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="submit" class="button add-button" value ="Ajouter" style="margin:auto">
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

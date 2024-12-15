@@ -1,0 +1,406 @@
+/* Regular */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Regular Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-Italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Bold */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Bold Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-BoldItalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+}
+
+/* Extra Bold */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+/* Extra Bold Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-ExtraBoldItalic.woff2') format('woff2');
+    font-weight: 800;
+    font-style: italic;
+}
+
+/* Medium */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/* Medium Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-MediumItalic.woff2') format('woff2');
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* Light */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Light Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-LightItalic.woff2') format('woff2');
+    font-weight: 300;
+    font-style: italic;
+}
+
+/* Extra Light */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-ExtraLight.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
+/* Extra Light Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-ExtraLightItalic.woff2') format('woff2');
+    font-weight: 200;
+    font-style: italic;
+}
+
+/* Semi Bold */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+}
+
+/* Semi Bold Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600;
+    font-style: italic;
+}
+
+/* Thin */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-Thin.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+}
+
+/* Thin Italic */
+@font-face {
+    font-family: 'Jetbrains';
+    src: url('../Jetbrains/JetBrainsMono-ThinItalic.woff2') format('woff2');
+    font-weight: 100;
+    font-style: italic;
+}
+
+html, body{
+    margin:0;
+    color:white;
+    font-family: 'Jetbrains', serif;
+    font-weight: 300;
+}
+
+body{
+    height:100%;
+}
+
+h1{
+    font-weight: 900;
+    margin: 0;
+}
+
+html{
+    height:100vh;
+    padding:1em;
+    overflow: hidden;
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 0 33% 0 0;
+}
+
+nav ul li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    margin-right: 2.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+td{
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    color: red;
+}
+
+a{
+    text-decoration: none;
+    color:inherit;
+}
+
+hr{
+    color:white;
+}
+
+.wrapper{
+    margin-top:2em;
+    margin-left:10em;
+    margin-right:10em;
+}
+
+.table-link{
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: .5em;
+}
+
+.table-last-tr{
+    text-align: center;
+    padding: .5em;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+}
+
+#canvas2{
+    width: 0;
+    height: 0;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top:1.5em;
+    height: 100%;
+}
+
+label{
+    margin-bottom: 0.5em;
+}
+
+/* Supprimer fleches haut/bas input number */
+/* Pour Chrome, Edge et Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Pour Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Pour les navigateurs modernes */
+input[type="number"] {
+    appearance: textfield;
+}
+
+.short-input {
+    width: 4ch; /* Ajuste la largeur à environ 4 caractères */
+    max-width: 6ch; /* Limite maximale pour environ 6 caractères */
+    text-align: center; /* Centrer le contenu si nécessaire */
+}
+
+.input-group {
+    display: flex; /* Aligne l'input et le texte sur la même ligne */
+    align-items: center;
+}
+
+.input-text {
+    margin-left: 5px; /* Espace entre l'input et le texte */
+    font-size: 14px; /* Ajustez la taille pour qu'elle corresponde */
+}
+
+button {
+    flex-grow: 0; /* Le bouton conserve sa taille naturelle */
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.button{
+    margin-right:1em;
+    border-radius:6px;
+    display:inline-block;
+    cursor:pointer;
+    font-size:1em;
+    padding:6px 24px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.button:active {
+    position:relative;
+    top:1px;
+}
+
+.add-button {
+    box-shadow:inset 0px 1px 0px 0px #caefab;
+    background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+    background-color:#77d42a;
+    border:1px solid #268a16;
+    color:#306108;
+    text-shadow:0px 1px 0px #aade7c;
+}
+.add-button:hover {
+    background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+    background-color:#5cb811;
+}
+
+.del-button {
+    box-shadow:inset 0px 1px 0px 0px #f29c93;
+    background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    background-color:#fe1a00;
+    border:1px solid #d83526;
+    color:#ffffff;
+    text-shadow:0px 1px 0px #b23e35;
+}
+.del-button:hover {
+    background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+    background-color:#ce0100;
+}
+
+.edit-button {
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:linear-gradient(to bottom, #79bbff 5%, #378de5 100%);
+    background-color:#79bbff;
+    border:1px solid #84bbf3;
+    color:#ffffff;
+    text-shadow:0px 1px 0px #528ecc;
+}
+.edit-button:hover {
+    background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+    background-color:#378de5;
+}
+
+.arch-button {
+    box-shadow:inset 0px 1px 0px 0px #fce2c1;
+    background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
+    background-color:#ffc477;
+    border:1px solid #eeb44f;
+    color:#ffffff;
+    text-shadow:0px 1px 0px #cc9f52;
+}
+.arch-button:hover {
+    background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
+    background-color:#fb9e25;
+}
+
+label {
+    font-weight: bold;
+}
+input[type="text"],
+input[type="url"],
+input[type="number"],
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.encadre{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height:auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 1em 1em 1em;
+}
+
+.sous-encadre{
+    display: flex;
+    flex-direction: column;
+}
+
+.carac-sett-list li{
+    margin-bottom:0.4em;
+}

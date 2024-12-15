@@ -2,8 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{{ page_title | default('Pas de titre') }}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" type="text/css" />
+        <link rel="icon" type="image/png" href="{{ asset('favicon.gif') }}">
         {% block stylesheets %}
         {% endblock %}
 
@@ -12,6 +14,20 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <nav>
+            <h1>Dorizonerr</h1>
+            <ul>
+                <li><a href="{{ path('index') }}">Home</a></li>
+                <li><a href="{{ path('index.archived') }}">Archives</a></li>
+                <li><a href="https://floriandorizon.fr" target="_blank">Dorizon Industries</a>&#8599;</li>
+            </ul>
+        </nav>
+        <hr>
+        <div class="wrapper">
+            {% block body %}{% endblock %}
+        </div>
+        <canvas id="canvas">YOUR_TEXT</canvas>
+        <canvas id="canvas2">YOUR_TEXT</canvas>
+        <script src="{{ asset('js/matrix.js') }}"></script>
     </body>
 </html>
