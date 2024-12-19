@@ -16,7 +16,7 @@ class ArchivedIndexController extends AbstractController
         $playLists = $mlr->findBy(['type' => 0, 'archived' => true]);
         $channels = $mlr->findBy(['type' => 1, 'archived' => true]);
 
-        return $this->render('index/index.html.twig', [
+        return $this->render('index.html.twig', [
             'controller_name' => 'IndexController',
             'playLists' => $playLists,
             'channels' => $channels,

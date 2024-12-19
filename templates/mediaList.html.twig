@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% if mediaList.archived == true %}
+    {% set title %}
+        {{ mediaList.title }}<span style="font-size:.75em">, {{ mediaList.type == 0 ? 'playlist ' : 'chaîne ' }} archivée</span>
+    {% endset %}
+{% else %}
+    {% set title %}
+        {{ mediaList.title }}<span style="font-size:.75em">, {{ mediaList.type == 0 ? 'playlist ' : 'chaîne ' }} active</span>
+    {% endset %}
+{% endif %}
+
+{% set page_title %} {{ mediaList.title }}{% endset %}
+{% block title %} {{ title }}{% endblock %}
+
+{% block body %}
+
+    <h2>{{ title }}</h2>
+
+    {% if mediaList is not empty %}
+
+        <div class="mediaList-container">
+            <div class="mediaList-poster-container">
+                <img src="{{ asset('downloaded/posters/' ~ mediaList.title ~ '.jpg') }}"
+                     onerror="this.onerror=null; this.src='{{ asset('downloaded/default-poster.jpg') }}';"
+                     class="mediaList-poster mediaList-poster-shadowed"
+                     alt="Poster de {{ mediaList.title }}"
+                />
+                {% set healthClass = mediaList.lastUpdateResult is same as(true)
+                    ? 'good-health'
+                    : (mediaList.lastUpdateResult is same as(false) ? 'bad-health' : 'unknown-health') %}
+
+                {% set healthText = mediaList.lastUpdateResult is same as(true)
+                    ? 'GOOD'
+                    : (mediaList.lastUpdateResult is same as(false) ? 'BAD' : 'UNKNOWN') %}
+
+                <button class="pill-button {{ healthClass }}">
+                    {{ healthText }} HEALTH
+                </button>
+            </div>
+            <div>
+                <h3>Caractéristiques :</h3>
+                <ul class="carac-sett-list">
+                    <li>Url : <a href="{{ mediaList.url }}" target="_blank">{{ mediaList.url }}</a>&#8599;</li>
+                    <li>Contient {{ mediaList.totalVideos }} vidéo{{ mediaList.totalVideos > 1 ? 's' : '' }}</li>
+                    <li>{{ mediaList.downloadedVideos }} vidéos ont été téléchargées</li>
+                    <li>{{ mediaList.deletedVideos }} vidéos ont été supprimées</li>
+                    <li>Dernier scan :
+                        {{ mediaList.updatedAt is empty
+                        ? 'jamais fait'
+                        : 'le ' ~ mediaList.updatedAt|date("j F Y à H\\hi") ~
+                        (mediaList.lastUpdateResult == true ? ' avec succès' : ' mais a échoué !')
+                        }}
+                    </li>
+                </ul>
+                <h3>Réglages :</h3>
+                <ul class="carac-sett-list">
+                    <li>Téléchargement des {{ mediaList.xLastVideos }} dernières vidéos</li>
+                    <li>
+                        {{ mediaList.deleteAfter > 0 ? mediaList.deleteAfter > 1 ? 'Supprimer les vidéos téléchargées après ' ~ mediaList.deleteAfter ~ ' jours' : 'Supprimer les vidéos téléchargées après ' ~ mediaList.deleteAfter ~ ' jour' : 'Les vidéos ne sont jamais supprimées' }}
+                    </li>
+                    <li>Cronjob : {{ mediaList.cronjob }}</li>
+                    <li>Qualité : {{ mediaList.quality > 0 ? mediaList.quality ~ '/3' : 'Audio seulement' }}</li>
+                    <li>Chemin de téléchargement : {{ mediaList.path }}</li>
+                </ul>
+                <p>
+                    <a href="#" class="button download-button">Scanner</a>
+                    <a href="{{ path('edit.mediaList', {id: mediaList.id}) }}" class="button edit-button">Modifier</a>
+                    <a href="{{ path('arch.mediaList', {id: mediaList.id}) }}" class="button arch-button" id="arch-button">{{  mediaList.archived == 'true' ? 'Activer' : 'Archiver' }}</a>
+                    <a href="{{ path('delete.mediaList', {id: mediaList.id}) }}" class="button del-button" id="del-button">Supprimer</a>
+                </p>
+                <p style="margin-top:4em">
+                    <a href="{{  mediaList.archived == 'true' ? path('index.archived') : path('index') }}" class="button add-button">Revenir {{ mediaList.archived == 'true' ? 'aux archives' : 'à l\'index' }}</a>
+                </p>
+            </div>
+        </div>
+
+
+        <!-- Modales -->
+        <div id="confirm-popup-arch" class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+                <p>Confirmer {{ mediaList.archived == 'true' ? 'l\'activation' : 'l\'archivage' }} ?</p>
+                <button id="arch-yes" class="button">Oui</button>
+                <button id="arch-no" class="button">Non</button>
+            </div>
+        </div>
+
+        <div id="confirm-popup-delete" class="popup-overlay" style="display: none;">
+            <div class="popup-content">
+                <p>Confirmer la suppression ?</p>
+                <button id="delete-yes" class="button">Oui</button>
+                <button id="delete-no" class="button">Non</button>
+            </div>
+        </div>
+
+        <script>
+            // Modale Archivage
+            document.addEventListener("DOMContentLoaded", function() {
+                const archButton = document.getElementById('arch-button');
+                const popupArch = document.getElementById('confirm-popup-arch');
+                const archYes = document.getElementById('arch-yes');
+                const archNo = document.getElementById('arch-no');
+
+                archButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Empêche le lien par défaut
+                    popupArch.style.display = 'flex';
+                });
+
+                archYes.addEventListener('click', function() {
+                    // Rediriger ou exécuter une action ici
+                    window.location.href = archButton.href; // Exemple pour suivre le lien
+                });
+
+                archNo.addEventListener('click', function() {
+                    popupArch.style.display = 'none'; // Cache la popup
+                });
+            });
+
+            // Modale Delete
+            document.addEventListener("DOMContentLoaded", function() {
+                const delButton = document.getElementById('del-button');
+                const popupDelete = document.getElementById('confirm-popup-delete');
+                const deleteYes = document.getElementById('delete-yes');
+                const deleteNo = document.getElementById('delete-no');
+
+                delButton.addEventListener('click', function(event) {
+                    event.preventDefault(); // Empêche le lien par défaut
+                    popupDelete.style.display = 'flex';
+                });
+
+                deleteYes.addEventListener('click', function() {
+                    // Rediriger ou exécuter une action ici
+                    window.location.href = delButton.href; // Exemple pour suivre le lien
+                });
+
+                deleteNo.addEventListener('click', function() {
+                    popupDelete.style.display = 'none'; // Cache la popup
+                });
+            });
+        </script>
+
+
+
+    {% else %}
+        <p>Vide</p>
+    {% endif %}
+
+{% endblock %}

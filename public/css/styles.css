@@ -135,6 +135,7 @@ html, body{
 
 body{
     height:100%;
+    padding:1em;
 }
 
 h1{
@@ -142,10 +143,15 @@ h1{
     margin: 0;
 }
 
+h2{
+    margin-top: .25em;
+    margin-bottom: 1em;
+}
+
 html{
-    height:100vh;
-    padding:1em;
-    overflow: hidden;
+    min-height:100vh;
+    background: rgb(53,53,49);
+    background: linear-gradient(148deg, rgba(53,53,49,1) 0%, rgba(236,78,32,1) 35%, rgba(255,149,5,1) 54%, rgba(1,111,185,1) 84%, rgba(0,0,0,1) 100%);
 }
 
 nav{
@@ -170,9 +176,17 @@ nav ul li{
 }
 
 table {
-    width: 100%;
+    width: 66%;
+    text-align: center;
     border-collapse: collapse;
     margin: 20px 0;
+}
+
+.table-container{
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
 }
 
 th, td {
@@ -188,6 +202,22 @@ td{
 
 th {
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.index-th-poster{
+    max-width: 60px;
+    margin:auto;
+    padding:.2em;
+}
+
+.index-th-poster .table-link{
+    padding:0;
+}
+
+.index-th-poster a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 button {
@@ -210,7 +240,7 @@ hr{
 }
 
 .wrapper{
-    margin-top:2em;
+    margin-top:.5em;
     margin-left:10em;
     margin-right:10em;
 }
@@ -306,6 +336,7 @@ button {
 
 .button{
     margin-right:1em;
+    margin-bottom: 1em;
     border-radius:6px;
     display:inline-block;
     cursor:pointer;
@@ -372,6 +403,81 @@ button {
     background-color:#fb9e25;
 }
 
+.download-button {
+    box-shadow:inset 0px 1px 0px 0px #656565;
+    background:linear-gradient(to bottom, #848484 5%, #424242 100%);
+    background-color: #bab9b8;
+    border:1px solid #afa99e;
+    color:#ffffff;
+    text-shadow:0px 1px 0px #cdc8bd;
+}
+.download-button:hover {
+    background:linear-gradient(to bottom, #424242 5%, #848484 100%);
+    background-color: #8e8e8e;
+}
+
+.pill-button {
+    border-radius:42px;
+    display:inline-block;
+    cursor:pointer;
+    font-family:Arial;
+    font-size:14px;
+    font-weight:bold;
+    padding:2px 24px;
+    text-decoration:none;
+    width:auto;
+}
+
+.pill-button:active {
+    position:relative;
+    top:1px;
+}
+
+.bad-health{
+    box-shadow:inset 0px 1px 0px 0px #f29c93;
+    background:linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    background-color:#fe1a00;
+    border:1px solid #d83526;
+    color:#ffffff;
+    text-shadow:0px 1px 0px #b23e35;
+}
+
+.good-health{
+    box-shadow:inset 0px 1px 0px 0px #caefab;
+    background:linear-gradient(to bottom, #77d42a 5%, #5cb811 100%);
+    background-color:#77d42a;
+    border:1px solid #268a16;
+    color:#306108;
+    text-shadow:0px 1px 0px #aade7c;
+}
+
+.unknown-health{
+    box-shadow:inset 0px 1px 0px 0px #fce2c1;
+    background:linear-gradient(to bottom, #ffc477 5%, #fb9e25 100%);
+    background-color:#ffc477;
+    border:1px solid #eeb44f;
+    color:#ffffff;
+    text-shadow:0px 1px 0px #cc9f52;
+}
+
+/* Effet hover (survol) */
+.unknown-health:hover {
+    background:linear-gradient(to bottom, #fb9e25 5%, #ffc477 100%);
+    background-color:#fb9e25;
+}
+
+/* Effet hover (survol) */
+.bad-health:hover {
+    background:linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+    background-color:#ce0100;
+}
+
+/* Effet hover (survol) */
+.unknown-health:hover {
+    background:linear-gradient(to bottom, #5cb811 5%, #77d42a 100%);
+    background-color:#5cb811;
+}
+
 label {
     font-weight: bold;
 }
@@ -400,7 +506,135 @@ select {
     display: flex;
     flex-direction: column;
 }
+.carac-sett-list {
+    list-style: none;
+}
 
 .carac-sett-list li{
+    position: relative;
+    padding-left: 2em;
     margin-bottom:0.4em;
+}
+
+.carac-sett-list li::before {
+    content: "";
+    color:white;
+    background-image: url('gear.svg'); /* Chemin de ton SVG */
+    background-size: contain; /* Ajuste la taille pour s'adapter */
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0; /* Place l'image à gauche */
+    top: 0.1em; /* Ajuste verticalement */
+    width: 1.5em; /* Taille du SVG */
+    height: 1em;
+}
+
+.mediaList-container{
+    display: flex;
+}
+
+.mediaList-container h3{
+    margin-top: 0;
+}
+
+.mediaList-poster-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right:4em;
+}
+
+.mediaList-poster{
+    border-radius: clamp(8px, 8%, 1em); /* Minimum 4px, maximum 1em */
+    object-fit: cover;
+    width:100%;
+    max-height:330px;
+    aspect-ratio: 0.55;
+    transition: transform .4s;
+    margin-bottom: .5em;
+}
+
+.mediaList-poster-shadowed{
+    box-shadow: rgba(255, 255, 255, 0.07) 0px 1px 2px, rgba(255, 255, 255, 0.07) 0px 2px 4px, rgba(255, 255, 255, 0.07) 0px 4px 8px, rgba(255, 255, 255, 0.07) 0px 8px 16px, rgba(255, 255, 255, 0.07) 0px 16px 32px, rgba(255, 255, 255, 0.07) 0px 32px 64px;
+
+}
+
+.mediaList-poster-shadowed:hover{
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 2px, rgba(255, 255, 255, 0.1) 0px 2px 4px, rgba(255, 255, 255, 0.1) 0px 4px 8px, rgba(255, 255, 255, 0.1) 0px 8px 16px, rgba(255, 255, 255, 0.1) 0px 16px 32px, rgba(255, 255, 255, 0.1) 0px 32px 64px;
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.alert {
+    height:100%;
+    padding: 0.1em;
+    border-radius: 5px;
+}
+
+.alert-container{
+    height:1.25em;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Animation pour masquer les messages */
+@keyframes fadeOut {
+    0% {
+        opacity: 1; /* Début visible */
+    }
+    50% {
+        opacity: 1; /* Reste visible jusqu'à 90% */
+    }
+    100% {
+        opacity: 0; /* Invisible à la fin */
+    }
+}
+
+.flash-message {
+    animation: fadeOut 6s forwards; /* Durée totale de 6 secondes */
+    animation-delay: 0s; /* Aucun délai au début */
+    transition: opacity 1s ease; /* Assure une transition douce */
+}
+
+/* ------------- MODALES ------------- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    color:black;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.popup-content button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background-color: #ddd;
 }

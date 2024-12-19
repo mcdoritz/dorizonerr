@@ -24,10 +24,19 @@
         </nav>
         <hr>
         <div class="wrapper">
+            <div class="alert-container">
+                {% for type, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ type }} flash-message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
             {% block body %}{% endblock %}
         </div>
-        <canvas id="canvas">YOUR_TEXT</canvas>
+        <!--<canvas id="canvas">YOUR_TEXT</canvas>
         <canvas id="canvas2">YOUR_TEXT</canvas>
-        <script src="{{ asset('js/matrix.js') }}"></script>
+        <script src="{{ asset('js/matrix.js') }}"></script>-->
     </body>
 </html>

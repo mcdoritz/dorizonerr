@@ -15,9 +15,10 @@ class MediaListController extends AbstractController
     {
         $mediaList = $mlr->find($id);
         //dd($mediaList);
-        return $this->render('media_list/index.html.twig', [
+        return $this->render('mediaList.html.twig', [
             'controller_name' => 'MediaListController',
-            'mediaList' => $mediaList
+            'mediaList' => $mediaList,
+            'poster' => $mediaList->getPath() . $mediaList->getTitle() .'.jpg'
         ]);
     }
 }

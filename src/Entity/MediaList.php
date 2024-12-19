@@ -14,10 +14,10 @@ class MediaList
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, unique: true)]
     private ?string $url = null;
 
     #[ORM\Column]
@@ -40,6 +40,21 @@ class MediaList
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private ?bool $archived = false;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(options: ['default' => 0])]
+    private ?int $totalVideos = 0;
+
+    #[ORM\Column(options: ['default' => 0])]
+    private ?int $downloadedVideos = 0;
+
+    #[ORM\Column(options: ['default' => 0])]
+    private ?int $deletedVideos = 0;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $lastUpdateResult = null;
 
     public function getId(): ?int
     {
@@ -150,6 +165,66 @@ class MediaList
     public function setArchived(bool $archived): static
     {
         $this->archived = $archived;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getTotalVideos(): ?int
+    {
+        return $this->totalVideos;
+    }
+
+    public function setTotalVideos(?int $totalVideos): static
+    {
+        $this->totalVideos = $totalVideos;
+
+        return $this;
+    }
+
+    public function getDownloadedVideos(): ?int
+    {
+        return $this->downloadedVideos;
+    }
+
+    public function setDownloadedVideos(?int $downloadedVideos): static
+    {
+        $this->downloadedVideos = $downloadedVideos;
+
+        return $this;
+    }
+
+    public function getDeletedVideos(): ?int
+    {
+        return $this->deletedVideos;
+    }
+
+    public function setDeletedVideos(?int $deletedVideos): static
+    {
+        $this->deletedVideos = $deletedVideos;
+
+        return $this;
+    }
+
+    public function isLastUpdateResult(): ?bool
+    {
+        return $this->lastUpdateResult;
+    }
+
+    public function setLastUpdateResult(?bool $lastUpdateResult): static
+    {
+        $this->lastUpdateResult = $lastUpdateResult;
 
         return $this;
     }

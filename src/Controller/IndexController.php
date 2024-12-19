@@ -17,7 +17,7 @@ class IndexController extends AbstractController
         $channels = $mlr->findBy(['type' => 1, 'archived' => false]);
         //dd($mediaList);
 
-        return $this->render('index/index.html.twig', [
+        return $this->render('index.html.twig', [
             'controller_name' => 'IndexController',
             'playLists' => $playLists,
             'channels' => $channels

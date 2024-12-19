@@ -61,7 +61,6 @@ class AddMediaListType extends AbstractType
                 'attr' => [
                     'class' => 'folder-picker',
                     'placeholder' => 'Cliquez pour sélectionner un dossier',
-                    'readonly' => true, // Empêche l’utilisateur de saisir manuellement
                 ],
             ]);
         ;

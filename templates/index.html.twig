@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% if archive is defined %}
+    {% set page_title %}
+        Archive des playlists et des chaînes
+    {% endset %}
+{% else %}
+    {% set page_title %}
+        Index des playlists et des chaînes
+    {% endset %}
+{% endif %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% block body %}
+    {% if archive is not defined %}
+    <h3>Ajouter une chaine ou une playlist</h3>
+    <a href="{{ path('add.mediaList') }}" class="button add-button">Ajouter</a>
+    {% endif %}
+    <hr>
+    <h3>Playlists {{ archive is defined ? ' archivées' : '' }}</h3>
+    <div class="table-container">
+        <table>
+            <colgroup>
+                <col style="width: 4%;">
+                <col style="width: 4%;">
+                <col style="width: 30%;">
+                <col style="width: 35%;">
+                <col style="width: 15%;">
+                <col style="width: 15%;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="index-th-poster"></th>
+                <th></th>
+                <th>Nom</th>
+                <th>URL</th>
+                <th>Cronjob</th>
+                <th>Age Max</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for playlist in playLists %}
+            <tr>
+                <td class="index-th-poster"><a href="{{ path('show.mediaList', {id: playlist.id}) }}" class="table-link">
+                        <img src="{{ asset('downloaded/posters/' ~ playlist.title ~ '.jpg') }}"
+                             onerror="this.onerror=null; this.src='{{ asset('downloaded/default-poster.jpg') }}';"
+                             class="mediaList-poster"
+                             style="max-width: 100px;"
+                             alt="Poster de {{ playlist.title }}"/>
+                    </a>
+                </td>
+                <td>
+                    {% set healthClass = playlist.lastUpdateResult is same as(true)
+                        ? 'good-health'
+                        : (playlist.lastUpdateResult is same as(false) ? 'bad-health' : 'unknown-health') %}
+
+                    <a href="{{ path('show.mediaList', {id: playlist.id}) }}" class="table-link">
+                        {{ playlist.lastUpdateResult }}
+                        <button class="pill-button {{ healthClass }}"></button>
+                    </a>
+                </td>
+                <td><a href="{{ path('show.mediaList', {id: playlist.id}) }}" class="table-link">{{ playlist.title }}</a></td>
+                <td><a href="{{ path('show.mediaList', {id: playlist.id}) }}" class="table-link">{{ playlist.url }}</a></td>
+                <td><a href="{{ path('show.mediaList', {id: playlist.id}) }}" class="table-link">{{ playlist.cronjob }}</a></td>
+                <td><a href="{{ path('show.mediaList', {id: playlist.id}) }}" class="table-link">{{ playlist.deleteAfter > 0 ? playlist.deleteAfter ~ ' jours' : 'Infini' }}</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <h3>Chaînes {{ archive is defined ? ' archivées' : '' }}</h3>
+    <div class="table-container">
+        <table>
+            <colgroup>
+                <col style="width: 4%;"> <!-- Première colonne -->
+                <col style="width: 30%;"> <!-- Deuxième colonne -->
+                <col style="width: 35%;"> <!-- Troisième colonne -->
+                <col style="width: 15%;"> <!-- Quatrième colonne -->
+                <col style="width: 15%;"> <!-- Cinquième colonne -->
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="index-th-poster"></th>
+                <th>Nom</th>
+                <th>URL</th>
+                <th>Cronjob</th>
+                <th>Age Max</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for channel in channels %}
+                <tr>
+                    <td class="index-th-poster"><a href="{{ path('show.mediaList', {id: channel.id}) }}" class="table-link">
+                            <img src="{{ asset('downloaded/posters/' ~ channel.title ~ '.jpg') }}"
+                                 onerror="this.onerror=null; this.src='{{ asset('downloaded/default-poster.jpg') }}';"
+                                 class="mediaList-poster"
+                                 style="max-width: 100px;"
+                                 alt="Poster de {{ channel.title }}"/>
+                        </a>
+                    </td>
+                    <td><a href="{{ path('show.mediaList', {id: channel.id}) }}" class="table-link">{{ channel.title }}</a></td>
+                    <td><a href="{{ path('show.mediaList', {id: channel.id}) }}" class="table-link">{{ channel.url }}</a></td>
+                    <td><a href="{{ path('show.mediaList', {id: channel.id}) }}" class="table-link">{{ channel.cronjob }}</a></td>
+                    <td><a href="{{ path('show.mediaList', {id: channel.id}) }}" class="table-link">{{ channel.deleteAfter > 0 ? channel.deleteAfter ~ ' jours' : 'Infini' }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
