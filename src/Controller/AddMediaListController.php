@@ -31,8 +31,7 @@ class AddMediaListController extends AbstractController
             $mediaListManager->downloadMediaListInfos($mediaList);
 
             $mediaListManager->copyPoster($mediaList);
-            $emi->persist($mediaList);
-            $emi->flush();
+            $mediaListManager->persistMediaList($mediaList);
 
             // Ajouter un message flash
             $this->addFlash('success', 'La '.$mediaList->getType() == 0 ? 'playlist' : 'chaîne' .' a bien été ajoutée !');

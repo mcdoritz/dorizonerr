@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\MediaList;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 class MediaListManager {
@@ -10,9 +11,12 @@ class MediaListManager {
     private FileManager $fileManager;
     private string $projectDir;
 
-    public function __construct(ProcessExecutor $processExecutor, FileManager $fileManager, string $projectDir) {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(ProcessExecutor $processExecutor, FileManager $fileManager, EntityManagerInterface $entityManager, string $projectDir) {
         $this->processExecutor = $processExecutor;
         $this->fileManager = $fileManager;
+        $this->entityManager = $entityManager;
         $this->projectDir = $projectDir;
     }
 
@@ -49,11 +53,10 @@ class MediaListManager {
         $url = $mediaList->getUrl();
 
         $command = <<<BASH
-            yt-dlp --skip-download --flat-playlist --write-info-json --write-description --write-thumbnail --add-metadata -o "{$path}/{$title}/{$title}.%(ext)s" "{$url}"
+            yt-dlp --skip-download --flat-playlist --write-info-json --write-description --write-thumbnail --add-metadata -o "$path/$title/$title.%(ext)s" "$url"
             BASH;
 
-        $output = $this->processExecutor->execute(['bash', '-c', $command]);
-        //dd($output);
+        $this->processExecutor->execute(['bash', '-c', $command]);
 
     }
 
@@ -80,15 +83,70 @@ class MediaListManager {
 
     public function copyPoster(MediaList $mediaList): bool
     {
-        $title = $mediaList->getTitle();
-        $path = $mediaList->getPath();
-        // Copier le fichier .jpg vers public
-        $sourceFile = dirname(__DIR__, 2) . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR .
-            $title . DIRECTORY_SEPARATOR . $title . '.jpg';
-        $destinationDir = $this->projectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'downloaded'. DIRECTORY_SEPARATOR .'posters'. DIRECTORY_SEPARATOR;
-        $destinationFile = $destinationDir . $mediaList->getTitle() . '.jpg';
+
+        $sourceFile = $this->getPosterFileSource($mediaList);
+
+        $destinationFile = $this->getCopiedPosterFileDestination($mediaList);
         $filesystem = new Filesystem();
         $filesystem->copy($sourceFile, $destinationFile, true);
+        return true;
+    }
+
+    public function deleteMediaListFiles(MediaList $mediaList): bool
+    {
+        $folderToDelete = $this->getMediaListFolder($mediaList);
+        $posterToDelete = $this->getCopiedPosterFileDestination($mediaList);
+
+        $folderDeleted = $this->fileManager->deleteFolder($folderToDelete);
+        $fileDeteted = $this->fileManager->deleteFile($posterToDelete);
+
+        $this->entityManager->remove($mediaList);
+        $this->entityManager->flush();
+
+        if($folderDeleted && $fileDeteted) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCopiedPosterFileDestination(MediaList $mediaList) : string
+    {
+        $destinationDir = $this->projectDir . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'downloaded'. DIRECTORY_SEPARATOR .'posters'. DIRECTORY_SEPARATOR;
+        return $destinationDir . $mediaList->getTitle() . '.jpg';
+    }
+
+    public function getMediaListFolder(MediaList $mediaList) : string
+    {
+        return $this->projectDir . DIRECTORY_SEPARATOR . $mediaList->getPath() . DIRECTORY_SEPARATOR . $mediaList->getTitle();
+    }
+
+    public function getPosterFileSource(MediaList $mediaList) : string
+    {
+        return $this->getMediaListFolder($mediaList) . DIRECTORY_SEPARATOR . $mediaList->getTitle() . '.jpg';
+    }
+
+    public function archiveMediaList(MediaList $mediaList): bool
+    {
+        if($mediaList->isArchived()) {
+            $mediaList->setArchived(false);
+        } else{
+            $mediaList->setArchived(true);
+        }
+        $this->persistMediaList($mediaList);
+
+        return true;
+    }
+
+    public function persistMediaList($mediaList): bool{
+        $this->entityManager->persist($mediaList);
+        $this->entityManager->flush();
+        return true;
+    }
+
+    public function deleteMediaList($mediaList): bool{
+        $this->entityManager->remove($mediaList);
+        $this->entityManager->flush();
         return true;
     }
 }
